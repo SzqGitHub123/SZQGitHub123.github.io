@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>算法基础知识 | 小强的嘻游记</title>
+  <title>about | 小强的嘻游记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、 评估算法的指标 时间复杂度（流程决定） 将一个算法细分到常数基本的操作，然后确定算法总流程与样本数量之间的关系表达式，例如 选择排序：将一个数组总的数按从小到大排序[3 , 4, 1, 6, …. , 9 ,10]  总共 N 个样本数选择排序的方法是：第一遍：将下标为0 的数字（比如是x） 与后面每一个数据进行对比，如果比x小，则将该数字与x进行交换，然后在往后进行该操作，总共进行了N-1">
-<meta property="og:type" content="article">
-<meta property="og:title" content="算法基础知识">
-<meta property="og:url" content="http://yoursite.com/2020/04/19/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+  <meta name="description" content="java  linux 架构 大数据">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="小强的嘻游记">
-<meta property="og:description" content="一、 评估算法的指标 时间复杂度（流程决定） 将一个算法细分到常数基本的操作，然后确定算法总流程与样本数量之间的关系表达式，例如 选择排序：将一个数组总的数按从小到大排序[3 , 4, 1, 6, …. , 9 ,10]  总共 N 个样本数选择排序的方法是：第一遍：将下标为0 的数字（比如是x） 与后面每一个数据进行对比，如果比x小，则将该数字与x进行交换，然后在往后进行该操作，总共进行了N-1">
+<meta property="og:description" content="java  linux 架构 大数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-19T07:23:32.000Z">
-<meta property="article:modified_time" content="2020-04-19T08:45:21.230Z">
+<meta property="article:published_time" content="2020-04-19T10:58:49.000Z">
+<meta property="article:modified_time" content="2020-04-19T10:58:49.946Z">
 <meta property="article:author" content="betterUE">
 <meta name="twitter:card" content="summary">
   
@@ -154,14 +154,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-算法基础知识" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      算法基础知识
+      about
     </h1>
   
 
@@ -172,30 +172,15 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/04/19/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="archive-article-date">
-  	<time datetime="2020-04-19T07:23:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
+<a href="/about/index.html" class="archive-article-date">
+  	<time datetime="2020-04-19T10:58:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="一、-评估算法的指标"><a href="#一、-评估算法的指标" class="headerlink" title="一、 评估算法的指标"></a>一、 评估算法的指标</h1><ul>
-<li><p>时间复杂度（流程决定）</p>
-<p>将一个算法细分到常数基本的操作，然后确定算法总流程与样本数量之间的关系表达式，例如 选择排序：将一个数组总的数按从小到大排序<br>[3 , 4, 1, 6, …. , 9 ,10]  总共 N 个样本数<br>选择排序的方法是：<br>第一遍：将下标为0 的数字（比如是x） 与后面每一个数据进行对比，如果比x小，则将该数字与x进行交换，然后在往后进行该操作，总共进行了N-1 次对比 和 N-1次交换（按最差情况）；<br>第二遍：将下标为1 的数字(比如是y)，与后面的每一个数进行对比，如果比y小，则将该数字与y进行交换，然后继续向后进行该操作，总共进行了N-2 次对比 和 N-1次交换；</p>
-</li>
-</ul>
-<p><strong>…….(省略中间操纵)</strong></p>
-<p>  直到对第N-2的下标的数字进行该操作，进行了1次对比 和 1次交换。</p>
-<p>  所以执行的 比对 + 替换的操作数量是 (N-1) + (N-2) + .. + 1,是一个等差数列 ，而等差数列的求和公式为：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">An &#x3D; A1 + (n-1)*d   -- d为等差值</span><br><span class="line">所以</span><br><span class="line">Sn &#x3D; 1&#x2F;2 * (A1 + A1 + （n-1）d)*n</span><br><span class="line">   &#x3D; d&#x2F;2n^2 + A1n + n&#x2F;2*d</span><br></pre></td></tr></table></figure></p>
-<p>  ​    <strong>忽略掉低阶项和常数项目</strong>  ，最后剩余 n^2 ,所以选择排序的时间复杂度是 O(N^2).称为 big 欧 的 N平方。</p>
-<ul>
-<li><p>额外空间复杂度（流程决定）</p>
-</li>
-<li><p>常数项时间（实现细节决定） </p>
-</li>
-</ul>
-<h1 id="二、对各个指标的解释"><a href="#二、对各个指标的解释" class="headerlink" title="二、对各个指标的解释"></a>二、对各个指标的解释</h1><h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+        
       
 
       
@@ -274,7 +259,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/19/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/about/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -286,16 +271,6 @@
 </article>
 
   
-<nav id="article-nav">
-  
-  
-    <a href="/2020/04/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">我的第一篇博客”</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -358,7 +333,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
