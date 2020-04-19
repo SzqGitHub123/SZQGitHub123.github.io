@@ -182,13 +182,12 @@
         <h1 id="一、-评估算法的指标"><a href="#一、-评估算法的指标" class="headerlink" title="一、 评估算法的指标"></a>一、 评估算法的指标</h1><ul>
 <li><p>时间复杂度（流程决定）</p>
 <p>将一个算法细分到常数基本的操作，然后确定算法总流程与样本数量之间的关系表达式，例如 选择排序：将一个数组总的数按从小到大排序<br>[3 , 4, 1, 6, …. , 9 ,10]  总共 N 个样本数<br>选择排序的方法是：<br>第一遍：将下标为0 的数字（比如是x） 与后面每一个数据进行对比，如果比x小，则将该数字与x进行交换，然后在往后进行该操作，总共进行了N-1 次对比 和 N-1次交换（按最差情况）；<br>第二遍：将下标为1 的数字(比如是y)，与后面的每一个数进行对比，如果比y小，则将该数字与y进行交换，然后继续向后进行该操作，总共进行了N-2 次对比 和 N-1次交换；</p>
-<pre><code>**.......(省略中间操纵)**</code></pre><p>直到对第N-2的下标的数字进行该操作，进行了1次对比 和 1次交换。</p>
-<p>所以执行的 比对 + 替换的操作数量是 (N-1) + (N-2) + .. + 1,是一个等差数列 ，而等差数列的求和公式为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">An &#x3D; A1 + (n-1)*d   -- d为等差值</span><br><span class="line">所以</span><br><span class="line">Sn &#x3D; 1&#x2F;2 * (A1 + A1 + （n-1）d)*n</span><br><span class="line">   &#x3D; d&#x2F;2n^2 + A1n + n&#x2F;2*d</span><br></pre></td></tr></table></figure>
-
-<p>​    <strong>忽略掉低阶项和常数项目</strong>  ，最后剩余 n^2 ,所以选择排序的时间复杂度是 O(N^2).称为 big 欧 的 N平方。</p>
 </li>
 </ul>
+<p><strong>…….(省略中间操纵)</strong></p>
+<p>  直到对第N-2的下标的数字进行该操作，进行了1次对比 和 1次交换。</p>
+<p>  所以执行的 比对 + 替换的操作数量是 (N-1) + (N-2) + .. + 1,是一个等差数列 ，而等差数列的求和公式为：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">An &#x3D; A1 + (n-1)*d   -- d为等差值</span><br><span class="line">所以</span><br><span class="line">Sn &#x3D; 1&#x2F;2 * (A1 + A1 + （n-1）d)*n</span><br><span class="line">   &#x3D; d&#x2F;2n^2 + A1n + n&#x2F;2*d</span><br></pre></td></tr></table></figure></p>
+<p>  ​    <strong>忽略掉低阶项和常数项目</strong>  ，最后剩余 n^2 ,所以选择排序的时间复杂度是 O(N^2).称为 big 欧 的 N平方。</p>
 <ul>
 <li><p>额外空间复杂度（流程决定）</p>
 </li>
