@@ -1,6 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2020/04/12/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>函数式编程和lambda表达式</title>
+    <url>/2020/05/05/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h3 id="1-通过将传统的java-代码使用函数式编程实现来认识函数式编程"><a href="#1-通过将传统的java-代码使用函数式编程实现来认识函数式编程" class="headerlink" title="1.通过将传统的java 代码使用函数式编程实现来认识函数式编程"></a>1.通过将传统的java 代码使用函数式编程实现来认识函数式编程</h3><h4 id="1-对一道面试题的2中的写法"><a href="#1-对一道面试题的2中的写法" class="headerlink" title="(1) 对一道面试题的2中的写法"></a>(1) 对一道面试题的2中的写法</h4><p>先来看一个笔试题：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用java 代码统计文本 word.txt 中单词的个数，请尽量使用简练的代码实现</span><br><span class="line"></span><br><span class="line">hello world</span><br><span class="line">hello ketty       ------&gt; 结果为： hello&#x3D;4 world&#x3D;1 ketty&#x3D;1 dear&#x3D;1 man&#x3D;1</span><br><span class="line">hello dear</span><br><span class="line">hello man</span><br></pre></td></tr></table></figure>
+
+<p>传统的java 代码实现方式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountOld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//读取文件</span></span><br><span class="line">        InputStream inputStream = WordCountOld.class.getClassLoader().getResourceAsStream("word.txt");</span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(inputStream));</span><br><span class="line">        String line = <span class="string">""</span>;</span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> ((line=bufferedReader.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">            String[] strArray = line.split(<span class="string">" "</span>);</span><br><span class="line">            initResult(map,strArray[<span class="number">0</span>]);</span><br><span class="line">            initResult(map,strArray[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initResult</span><span class="params">(Map&lt;String, Integer&gt; map, String key)</span> </span>&#123;</span><br><span class="line">        Integer value = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(key))&#123;</span><br><span class="line">            value = map.get(key)+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(key,value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用Strean + lambda 方式实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountNew</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//读取文件</span></span><br><span class="line">        InputStream inputStream = WordCountNew.class.getClassLoader().getResourceAsStream("word.txt");</span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(inputStream));</span><br><span class="line"></span><br><span class="line">        bufferedReader.lines().flatMap(x-&gt; Stream.of(x.split(<span class="string">" "</span>))).collect(Collectors.groupingBy(x-&gt;x)).forEach((a,b)-&gt;System.out.println(a+<span class="string">":"</span>+b.size()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-什么是函数式编程"><a href="#2-什么是函数式编程" class="headerlink" title="(2) 什么是函数式编程"></a>(2) 什么是函数式编程</h4><ul>
+<li>面向对象的编程是对数据的抽象</li>
+<li>函数式编程是对行为的抽象<ul>
+<li>函数是对一个值进行处理，映射为另一个值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-学习lambda表达式"><a href="#2-学习lambda表达式" class="headerlink" title="2.学习lambda表达式"></a>2.学习lambda表达式</h3><h4 id="1-lambda-是什么"><a href="#1-lambda-是什么" class="headerlink" title="(1). lambda 是什么"></a>(1). lambda 是什么</h4><p>​        lambda表达式是 JDK 1.8出现的新特性，它是一个匿名函数，即没有函数名的函数，简化了匿名委托的使用，让你的代码更简洁。</p>
+<p>​        匿名函数或者匿名委托,其实也是我们平常所说的匿名内部类，看下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 匿名内部类</span></span><br><span class="line">        Runnable r = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"ue"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 改写上面代码，使用lambda表达式,第一个() 对应上面匿名内部类中的 run() 的括号</span></span><br><span class="line">        Runnable r1 = ()-&gt;System.out.println(<span class="string">"ue"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        TreeSet&lt;String&gt; ts = <span class="keyword">new</span> TreeSet&lt;&gt;(<span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String o1, String o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> Long.compare(o1.length(),o2.length());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 将上面的方法替换为 lambda</span></span><br><span class="line">        <span class="comment">// 参数也可以带类型</span></span><br><span class="line">    TreeSet&lt;String&gt; ts3 = <span class="keyword">new</span> TreeSet&lt;&gt;((String o1,String o2) -&gt; Long.compare(o1.length(),o2.length()));</span><br><span class="line">        <span class="comment">//也可以不带类型，JVM可以根据上下文去判断</span></span><br><span class="line">        TreeSet&lt;String&gt; ts2 = <span class="keyword">new</span> TreeSet&lt;&gt;((o1,o2) -&gt; Long.compare(o1.length(),o2.length()));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-lambda-语法"><a href="#2-lambda-语法" class="headerlink" title="(2).lambda 语法"></a>(2).lambda 语法</h4><p>​        <strong>lambda 表达式引入了新的语法元素和操作符号，这个操作符号为 -&gt;：</strong></p>
+<ul>
+<li><p>符号-&gt;左侧指定了 Lambda 表达式需要的所有参数</p>
+</li>
+<li><p>右侧 指定了Lambda 体，即Lambda 表达式要执行的功能</p>
+<p><strong>lambda 表达式语法格式：</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>格式一：无参数，无返回值；</p>
+</li>
+<li><p>格式二：有一个参数，并且无返回值；</p>
+</li>
+<li><p>格式三：若只有一个参数，小括号可以省略不写；</p>
+</li>
+<li><p>格式四：有两个以上参数，有返回值，并且lambda 体中有多条语句；</p>
+</li>
+<li><p>格式五：若lambda 体中只有一条语句，return 和 大括号都可以省略不写；</p>
+</li>
+<li><p>格式六：lambda 表达式的参数列表的数据类型可以省略不写，因为JVM编译器可以通过上下文推断出数据类型，这个叫 “类型推断”。</p>
+<p>代码案例(有传统写法作为对比)：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//格式一</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lambdaTest1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 传统写法</span></span><br><span class="line">        Runnable r = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"ue"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用lambda</span></span><br><span class="line">        Runnable r1 = ()-&gt;System.out.println(<span class="string">"ue"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//格式二</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lambdaTest2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Consumer consumer1 = <span class="keyword">new</span> Consumer() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">                System.out.println(o);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        Consumer consumer2 = (o) -&gt;  System.out.println(o);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 格式三 （格式二的再简化）</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lambdaTest3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Consumer consumer2 = o -&gt;  System.out.println(o);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 格式四</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lambdaTest4</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Comparator&lt;Integer&gt; com = <span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer a, Integer b)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"函数式接口"</span>);</span><br><span class="line">                <span class="keyword">return</span> Integer.compare(a,b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        Comparator&lt;Integer&gt; com2 = (a,b) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"函数式接口"</span>);</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(a,b);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 格式五</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lambdaTest5</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Comparator&lt;Integer&gt; com = <span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer a, Integer b)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(a,b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    Comparator&lt;Integer&gt; com2 = (Integer a,Integer b) -&gt; </span><br><span class="line">        Integer.compare(a,b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 格式六（格式五的再简化）</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lambdaTest6</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Comparator&lt;Integer&gt; com = <span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer a, Integer b)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(a,b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="comment">//注意：如果将泛化类型&lt;Integer&gt; 删除掉，就不能进行类型推断，这样就不能省略数据类型了</span></span><br><span class="line">    Comparator&lt;Integer&gt; com2 = (a, b) -&gt; </span><br><span class="line">        Integer.compare(a,b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+</li>
+</ul>
+<h4 id="3-函数式接口"><a href="#3-函数式接口" class="headerlink" title="(3).函数式接口"></a>(3).函数式接口</h4><ul>
+<li><p>lambda 表达式是需要 <strong>函数接口</strong> 的支持的</p>
+</li>
+<li><p>函数式接口：接口中只有一个抽象方法的接口，称为 <strong>函数式接口</strong> 。可以使用注解 <strong><em>@FunctionalInterface</em></strong> 修饰 可以检查是否是 函数式接口。</p>
+</li>
+</ul>
+<p><strong>java 内部自带的函数式接口：java.util.function</strong></p>
+<p>  <strong>常用的函数接口:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">接口</th>
+<th align="center">参数</th>
+<th align="center">返回类型</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Predicate<T></T></td>
+<td align="center">T</td>
+<td align="center">boolean</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Consumer<T></T></td>
+<td align="center">T</td>
+<td align="center">void</td>
+<td align="center">输出一个值</td>
+</tr>
+<tr>
+<td align="center">Function&lt;T,R&gt;</td>
+<td align="center">T</td>
+<td align="center">R</td>
+<td align="center">获取Person对象的名字</td>
+</tr>
+<tr>
+<td align="center">Supplier<T></T></td>
+<td align="center">None</td>
+<td align="center">T</td>
+<td align="center">工厂方法</td>
+</tr>
+<tr>
+<td align="center">UnaryOperator</td>
+<td align="center">T</td>
+<td align="center">T</td>
+<td align="center">逻辑非</td>
+</tr>
+<tr>
+<td align="center">BinaryOperator</td>
+<td align="center">(T,T)</td>
+<td align="center">T</td>
+<td align="center">求2个数的积</td>
+</tr>
+<tr>
+<td align="center">#### (4).lambda练习</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="3-学习-Stream-API"><a href="#3-学习-Stream-API" class="headerlink" title="3.学习 Stream API"></a>3.学习 Stream API</h3><h4 id="1-Stream-是什么"><a href="#1-Stream-是什么" class="headerlink" title="(1).Stream 是什么"></a>(1).Stream 是什么</h4><ul>
+<li><p>Stream 是数据渠道，用于操作数据源（集合、数组等）所生成的元素序列。</p>
+</li>
+<li><p>Stream的操作步骤：</p>
+<p>1.创建流：一个数据源（eg: 集合、数组），获取一个流；</p>
+<p>2.中间操作：一个中间操作链，对数据源的数据进行处理；</p>
+<p>3.终止操作：一个终止操作，执行中间操作链，并产生结果。</p>
+</li>
+</ul>
+<p><img src="/" class="lazyload" data-src="/2020/05/05/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/..%5CblogImages%5Cstream_operation.png"  alt="流的操作"></p>
+<h4 id="2-创建Stream"><a href="#2-创建Stream" class="headerlink" title="(2).创建Stream"></a>(2).创建Stream</h4><p><strong>四种方法：</strong></p>
+<ul>
+<li><p>Collection 提供了2个方法，stream() 和 parallelStream()</p>
+</li>
+<li><p>通过Arrays 中的stream() 获取一个数组流</p>
+</li>
+<li><p>通过Stream 类中的静态方法 of</p>
+</li>
+<li><p>创建无限流</p>
+<p><strong>代码演示：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateStream</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建流</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            一、 通过Collection 提供的两个方法 stream() 和 parallelStream()</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 获取一个顺序流</span></span><br><span class="line">        Stream&lt;String&gt; stream = list.stream();</span><br><span class="line">        <span class="comment">// 获取一个并行流</span></span><br><span class="line">        Stream&lt;String&gt; parallelStream = list.parallelStream();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            二、通过Arrays 中的stream() 获取一个数组流</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Integer[] nums = <span class="keyword">new</span> Integer[<span class="number">10</span>];</span><br><span class="line">        Stream&lt;Integer&gt; stream1 = Arrays.stream(nums);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            三、通过Stream 中的静态方法 of()</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Stream&lt;Integer&gt; stream2 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">        <span class="comment">// 或者</span></span><br><span class="line">        Integer[] nums2 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        Stream&lt;Integer&gt; stream3 = Stream.of(nums2);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            四、创建无限流</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 迭代</span></span><br><span class="line">        Stream&lt;Integer&gt; stream4 = Stream.iterate(<span class="number">0</span>,(x) -&gt; x+<span class="number">2</span>).limit(<span class="number">10</span>);</span><br><span class="line">        stream4.forEach(System.out::println);</span><br><span class="line">        <span class="comment">// 生成</span></span><br><span class="line">        Stream&lt;Double&gt; stream5 = Stream.generate(Math::random).limit(<span class="number">2</span>);</span><br><span class="line">        stream5.forEach(System.out::println);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="3-中间操作"><a href="#3-中间操作" class="headerlink" title="(3).中间操作"></a>(3).中间操作</h4><h4 id="4-终止操作"><a href="#4-终止操作" class="headerlink" title="(4).终止操作"></a>(4).终止操作</h4><p>​        终止操作会从流的流水线生成结果，其结果可以是任何不是流的值，例如：List、Ingeter、甚至是void;</p>
+<p>​        <strong>查找与匹配的方法：</strong></p>
+<ul>
+<li><p>allMatch(Predicate p) 检查是否匹配所有的元素</p>
+</li>
+<li><p>anyMatch(Predicate p) 检查是否至少匹配要给元素</p>
+</li>
+<li><p>noneMatch(Predicate p) 检查是否没有匹配所有的元素</p>
+</li>
+<li><p>findFirst() 返回第一个元素</p>
+</li>
+<li><p>findAny() 返回当前流中的任意元素</p>
+</li>
+<li><p>count() 返回流中元素的个数</p>
+</li>
+<li><p>max(Comparator c) 返回流中的最大值</p>
+</li>
+<li><p>min(Comparator c) 返回流中的最小值</p>
+</li>
+<li><p>forEach(Consumer s) 迭代</p>
+</li>
+</ul>
+<pre><code>**归约：**</code></pre><ul>
+<li><p>reduce(T iden,BinaryOperator b) 可以将流中元素反复结合起来，得到一个值，返回T</p>
+</li>
+<li><p>reduce(BinaryOperator b) 可以将流中的元素反复结合起来，得到一个值，返回Optional<T></T></p>
+<p><strong>收集：</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>collect(Collector c) 将流转换为其他形式，接收一个Collector 接口的实现，用于给Stream 中元素做汇总的方法</p>
+</li>
+<li><p>Collectors 实现类提供了很多静态方法，可以方便的创建常见的收集器实例</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>函数式编程 lambda表达式</category>
+      </categories>
+      <tags>
+        <tag>函数式编程 lambda表达式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>函数式编程和lambda表达式</title>
     <url>/2020/05/05/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<p>[TOC]</p>
@@ -75,13 +279,13 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">Predicate<T></td>
+<td align="center">Predicate<T></T></td>
 <td align="center">T</td>
 <td align="center">boolean</td>
 <td align="center"></td>
 </tr>
 <tr>
-<td align="center">Consumer<T></td>
+<td align="center">Consumer<T></T></td>
 <td align="center">T</td>
 <td align="center">void</td>
 <td align="center">输出一个值</td>
@@ -93,7 +297,7 @@
 <td align="center">获取Person对象的名字</td>
 </tr>
 <tr>
-<td align="center">Supplier<T></td>
+<td align="center">Supplier<T></T></td>
 <td align="center">None</td>
 <td align="center">T</td>
 <td align="center">工厂方法</td>
@@ -126,7 +330,7 @@
 <p>3.终止操作：一个终止操作，执行中间操作链，并产生结果。</p>
 </li>
 </ul>
-<p><img src="/" class="lazyload" data-src="..%5CblogImages%5Cstream_operation.png"  alt="流的操作"></p>
+<p><img src="/" class="lazyload" data-src="/2020/05/05/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/.%5Clambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%5Cstream_operation.png"  alt="流的操作"></p>
 <h4 id="2-创建Stream"><a href="#2-创建Stream" class="headerlink" title="(2).创建Stream"></a>(2).创建Stream</h4><p><strong>四种方法：</strong></p>
 <ul>
 <li><p>Collection 提供了2个方法，stream() 和 parallelStream()</p>
@@ -165,11 +369,11 @@
 <li><p>forEach(Consumer s) 迭代</p>
 </li>
 </ul>
-<pre><code>**归约**</code></pre><ul>
+<pre><code>**归约：**</code></pre><ul>
 <li><p>reduce(T iden,BinaryOperator b) 可以将流中元素反复结合起来，得到一个值，返回T</p>
 </li>
-<li><p>reduce(BinaryOperator b) 可以将流中的元素反复结合起来，得到一个值，返回Optional<T></p>
-<p><strong>收集</strong></p>
+<li><p>reduce(BinaryOperator b) 可以将流中的元素反复结合起来，得到一个值，返回Optional<T></T></p>
+<p><strong>收集：</strong></p>
 </li>
 </ul>
 <ul>
@@ -198,24 +402,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/04/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>算法基础知识</title>
     <url>/2020/04/19/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h1 id="一、-评估算法的指标"><a href="#一、-评估算法的指标" class="headerlink" title="一、 评估算法的指标"></a>一、 评估算法的指标</h1><ul>
@@ -233,7 +419,7 @@
 <li><p>常数项时间（实现细节决定） </p>
 </li>
 </ul>
-<h1 id="二、对各个指标的解释"><a href="#二、对各个指标的解释" class="headerlink" title="二、对各个指标的解释"></a>二、对各个指标的解释</h1><h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
+<h1 id="二、对各个指标的解释"><a href="#二、对各个指标的解释" class="headerlink" title="二、对各个指标的解释"></a>二、对各个指标的解释</h1><h1 id><a href="#" class="headerlink" title></a></h1>]]></content>
       <categories>
         <category>算法</category>
       </categories>
